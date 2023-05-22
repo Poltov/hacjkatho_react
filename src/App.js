@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Items from "./components/Card";
+import { items } from "./components/consts";
+import Elems from "./components/Elems";
 
-function App() {
+function addToOrder(item) {
+  let isInArray = false;
+  this.state.orders.forEach((el) => {
+    if (el.id === item.id) isInArray = true;
+  });
+  if (!isInArray)
+    this.setState({ orders: [...this.state.orders, item] }, () => {
+      console.log(this.state.orders);
+    });
+}
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      <Elems items={items} onAdd={addToOrder} />
+      <Footer />
     </div>
   );
-}
+};
 
 export default App;
